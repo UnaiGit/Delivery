@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
-
+    tools:context=".activities.RegisterActivity">
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
@@ -13,7 +12,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/indigo_daisy"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,14 +21,14 @@
         android:id="@+id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/get_into_with_your_email_and_password"
+        android:text="@string/complete_the_information"
         app:layout_constraintStart_toStartOf="@id/tvLogin"
         app:layout_constraintTop_toBottomOf="@id/tvLogin"
         android:fontFamily="@font/roboto_regular"
         android:textSize="10sp"/>
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etName"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/tvDesc"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,32 +36,88 @@
         android:layout_height="50dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="50dp"
-        android:inputType="textEmailAddress"
+        android:hint="@string/name"
+        android:background="@drawable/et_rounded"
+        android:padding="15dp"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/etSurname"
+        app:layout_constraintStart_toStartOf="@id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@id/etName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/et_surname"
+        android:background="@drawable/et_rounded"
+        android:padding="15dp"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        app:layout_constraintStart_toStartOf="@id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@id/etSurname"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/email_login"
         android:background="@drawable/et_rounded"
         android:padding="15dp"
         android:textSize="14sp"/>
 
     <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:id="@+id/etMobile"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="@string/password_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/et_mobile"
+        android:background="@drawable/et_rounded"
+        android:padding="15dp"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        app:layout_constraintStart_toStartOf="@id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@id/etMobile"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/et_password"
+        android:background="@drawable/et_rounded"
+        android:padding="15dp"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/etPasswordConfirm"
+        app:layout_constraintStart_toStartOf="@id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/et_repeat_password"
         android:background="@drawable/et_rounded"
         android:padding="15dp"
         android:textSize="14sp"/>
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/btn_rounded"
-        android:text="@string/log_in"
+        android:text="@string/register"
         android:gravity="center"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toTopOf="@id/clRegister"
@@ -80,26 +135,26 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/ivRegisterIcon"
+            android:id="@+id/ivLoginIcon"
             android:src="@drawable/ic_arrow"
             android:layout_width="25dp"
             android:layout_height="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clRegister"
-            app:layout_constraintBottom_toTopOf="@id/btnRegister"
+            app:layout_constraintBottom_toTopOf="@id/btnRegisterFooter"
             app:tint="#989898"
             android:contentDescription="Icon which runs the same action that btnRegister" />
 
         <TextView
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnRegisterFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivRegisterIcon"
+            app:layout_constraintTop_toBottomOf="@id/ivLoginIcon"
             android:textColor="#989898"
-            android:text="Register here"/>
+            android:text="@string/go_to_login"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

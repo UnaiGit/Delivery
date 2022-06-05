@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Delivery</string>
+    <string name="login">Login</string>
+    <string name="get_into_with_your_email_and_password">Get into with your Email and Password</string>
+    <string name="email_login">Email</string>
+    <string name="password_login">Password</string>
+    <string name="log_in">LOG IN</string>
+    <string name="register">Register</string>
+    <string name="complete_the_information">Complete the information</string>
+    <string name="name">Name</string>
+    <string name="et_surname">Surname</string>
+    <string name="et_mobile">Mobile</string>
+    <string name="et_password">Password</string>
+    <string name="et_repeat_password">Repeat Password</string>
+    <string name="go_to_login">Go to Login</string>
 </resources>
