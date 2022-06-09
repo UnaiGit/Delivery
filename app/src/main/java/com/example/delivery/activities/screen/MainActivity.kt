@@ -1,10 +1,9 @@
-package com.example.delivery.activities
+package com.example.delivery.activities.screen
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.delivery.R
 import com.example.delivery.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

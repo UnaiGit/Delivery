@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Delivery" >
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name="com.example.delivery.activities.screen.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.delivery.activities.screen.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
