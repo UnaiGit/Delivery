@@ -18,7 +18,7 @@ class RegisterViewModel(private val repository: Repository) : ViewModel() {
     private var isPhoneValid = false
     private var isPasswordValid = false
 
-    private val _viewState: MutableLiveData<RegisterViewStates> = MutableLiveData(MainDisabled)
+    private val _viewState: MutableLiveData<RegisterViewStates> = MutableLiveData(RegisterDisabled)
     private val _viewEffect: MutableLiveData<RegisterViewEffects> = MutableLiveData()
 
     fun viewState(): LiveData<RegisterViewStates> {

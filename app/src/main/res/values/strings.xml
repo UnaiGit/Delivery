@@ -13,4 +13,7 @@
     <string name="et_password">Password</string>
     <string name="et_repeat_password">Repeat Password</string>
     <string name="go_to_login">Go to Login</string>
+    <string name="error">ERROR</string>
+    <string name="popup_image">Popup image</string>
+    <string name="close_button">Close button</string>
 </resources>

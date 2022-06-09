@@ -1,16 +1,20 @@
 package com.example.delivery.activities.screen
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.delivery.activities.modelfactory.RegisterViewModelFactory
 import com.example.delivery.activities.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
+import com.example.delivery.databinding.LayoutPopupWarningBinding
 import com.example.delivery.model.effects.RegisterOpenHome
 import com.example.delivery.model.effects.RegisterOpenLogin
 import com.example.delivery.model.states.*
+import com.example.delivery.popup.PopupWarningLayout
 import com.example.delivery.repository.Repository
 
 class RegisterActivity : AppCompatActivity() {
@@ -29,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
                 is RegisterEnabled -> showButtonEnabled()
                 is RegisterDisabled -> showAllByDefault()
                 is RegisterLoading -> showProgressBar()
-                is RegisterError -> showErrorPopup()
+                is RegisterError -> showErrorPopup(state.error)
                 is RegisterSuccess -> showSuccessRegister()
             }
         }
@@ -40,6 +44,8 @@ class RegisterActivity : AppCompatActivity() {
                 is RegisterOpenLogin -> openLoginSelected()
             }
         }
+
+        
     }
 
     private fun openLoginSelected() {
@@ -51,22 +57,29 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showSuccessRegister() {
-        TODO("Not yet implemented")
+        Toast.makeText(this, "success",Toast.LENGTH_SHORT).show()
+        binding.btnRegister.isVisible = true
+        binding.pbRegister.isVisible = false
     }
 
-    private fun showErrorPopup() {
-        TODO("Not yet implemented")
+    private fun showErrorPopup(error: String) {
+        PopupWarningLayout.showPopup(this, error)
+        binding.btnRegister.isVisible = true
+        binding.pbRegister.isVisible = false
     }
 
     private fun showProgressBar() {
-        TODO("Not yet implemented")
+        binding.btnRegister.isVisible = false
+        binding.pbRegister.isVisible = true
     }
 
     private fun showAllByDefault() {
-        TODO("Not yet implemented")
+        binding.btnRegister.isEnabled = false
+        binding.btnRegister.setBackgroundColor(Color.GRAY)
     }
 
     private fun showButtonEnabled() {
-        TODO("Not yet implemented")
+        binding.btnRegister.isEnabled = true
+        binding.btnRegister.setBackgroundColor(Color.BLUE)
     }
 }
