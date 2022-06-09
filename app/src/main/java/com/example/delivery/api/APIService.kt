@@ -1,4 +1,4 @@
-package com.example.delivery.routes
+package com.example.delivery.api
 
 import com.example.delivery.model.createUser.CreateUser
 import com.example.delivery.model.createUser.CreateUserResponseRemote

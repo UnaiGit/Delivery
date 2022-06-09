@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun openLoginSelected() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun openHomeSelected() {
@@ -68,8 +68,5 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showButtonEnabled() {
         TODO("Not yet implemented")
-    }
-    private fun onLoginSelected() {
-        startActivity(Intent(this, MainActivity::class.java))
     }
 }
