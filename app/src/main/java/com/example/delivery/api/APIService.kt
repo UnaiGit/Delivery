@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface APIService {
-    @POST("api/users/create")
+    @POST("53c70335-bcf5-43e6-bae1-afdcdb57692a")
     suspend fun registerUser(
         @Body createUser: CreateUser
     ): Response<CreateUserResponseRemote>
