@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.delivery.activities.modelfactory.RegisterViewModelFactory
 import com.example.delivery.activities.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
-import com.example.delivery.model.createUser.CreateUserResponseRemote
 import com.example.delivery.model.effects.RegisterOpenHome
 import com.example.delivery.model.effects.RegisterOpenLogin
 import com.example.delivery.model.states.*
@@ -55,11 +54,11 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.btnRegister.setOnClickListener {
             viewModel.onRegisterButtonClicked(
-                email = binding.etEmail.toString(),
-                name = binding.etName.toString(),
-                lastname = binding.etSurname.toString(),
-                phone = binding.etMobile.toString(),
-                password = binding.etPassword.toString()
+                email = binding.etEmail.text.toString(),
+                name = binding.etName.text.toString(),
+                lastname = binding.etSurname.text.toString(),
+                phone = binding.etMobile.text.toString(),
+                password = binding.etPassword.text.toString()
             )
         }
     }
@@ -92,8 +91,8 @@ class RegisterActivity : AppCompatActivity() {
         TODO("Not yet implemented")
     }
 
-    private fun showSuccessRegister(createUserResponse: Boolean) {
-        Toast.makeText(this, createUserResponse.toString(), Toast.LENGTH_SHORT).show()
+    private fun showSuccessRegister(createUserResponse: String?) {
+        Toast.makeText(this, createUserResponse, Toast.LENGTH_SHORT).show()
         binding.btnRegister.isVisible = true
         binding.pbRegister.isVisible = false
     }

@@ -1,16 +1,20 @@
 package com.example.delivery.activities.viewmodel
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.example.delivery.model.createUser.User
+import com.example.delivery.model.createUser.ResponseHttp
 import com.example.delivery.model.effects.RegisterViewEffects
 import com.example.delivery.model.states.*
-import com.example.delivery.repository.ErrorResponse
+import com.example.delivery.provider.UsersProvider
 import com.example.delivery.repository.Repository
-import com.example.delivery.repository.Repository.Companion.NO_INTERNET_ERROR
-import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterViewModel(private val repository: Repository) : ViewModel() {
     private var isEmailValid = false
@@ -18,6 +22,7 @@ class RegisterViewModel(private val repository: Repository) : ViewModel() {
     private var isPasswordValid = false
     private var pass1 : String? = null
     private var pass2 : String? = null
+    var usersProvider = UsersProvider()
 
     private val _viewState: MutableLiveData<RegisterViewStates> = MutableLiveData(RegisterDisabled)
     private val _viewEffect: MutableLiveData<RegisterViewEffects> = MutableLiveData()
@@ -73,31 +78,32 @@ class RegisterViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    private fun errorHandler(errorCode: ErrorResponse) {
+    /*private fun errorHandler(errorCode: ErrorResponse) {
         if (errorCode == ErrorResponse(Repository.NO_INTERNET_ERROR)) {
             _viewState.value = RegisterError("No Network connection")
         } else {
             _viewState.value = RegisterError("Unexpected Server Error. Please try again later")
         }
-    }
+    }*/
 
     //Action Register
     fun onRegisterButtonClicked(email: String, name: String, lastname: String, phone: String, password: String) {
-        _viewState.value = RegisterLoading
-        viewModelScope.launch {
-            val response = repository.createNewUser(email, name, lastname, phone, password)
-            println("Content ${response.data}")
-            with(response){
-                if (data != null){
-                    _viewState.value = RegisterSuccess(data)
-                } else {
-                    if (error == ErrorResponse(NO_INTERNET_ERROR)){
-                        _viewState.value = RegisterError("No Network connection")
-                    }else{
-                        _viewState.value = RegisterError("Unexpected Server Error. Please try again later")
-                    }
-                }
+        val createUser = User(email = email,  name = name, lastname = lastname, phone = phone, password = password)
+        usersProvider.register(createUser)?.enqueue(object: Callback<ResponseHttp>{
+            override fun onResponse(
+                call: Call<ResponseHttp>,
+                response: Response<ResponseHttp>
+            ) {
+                _viewState.value = RegisterSuccess(response.body()?.message)
+                Log.d(TAG, "Body ${response.body()}")
             }
-        }
+
+            override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
+                _viewState.value = RegisterError(t.message.toString())
+                Log.d(TAG, "Error happened ${t.message}")
+                //Toast.makeText(this@RegisterViewModel, "Error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 }
