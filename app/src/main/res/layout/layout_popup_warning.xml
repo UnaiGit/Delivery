@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:background="@color/main"
+    android:id="@+id/popupBackground"
+    app:circularflow_radiusInDP="10dp">
+
+
+    <ImageView
+        android:id="@+id/imgPopup"
+        android:contentDescription="@string/popup_image"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/popup"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/tvPopup"
+        android:text="@string/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/imgPopup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnClosePopup"
+        app:layout_constraintBottom_toTopOf="@id/tvErrortype"
+        android:textSize="20sp"
+        android:textColor="@color/red"/>
+
+    <TextView
+        android:id="@+id/tvErrortype"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@id/imgPopup"
+        app:layout_constraintTop_toBottomOf="@id/tvPopup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="0dp"
+        android:textSize="13sp"
+        android:textColor="@color/white"/>
+
+
+    <ImageButton
+        android:id="@+id/btnClosePopup"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/red"
+        android:foregroundGravity="center"
+        android:contentDescription="@string/close_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

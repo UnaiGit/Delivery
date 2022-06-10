@@ -30,6 +30,7 @@
         android:textSize="10sp"/>
 
     <EditText
+        android:text="dewwdw"
         android:id="@+id/etName"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/tvDesc"
@@ -44,6 +45,7 @@
         android:textSize="14sp"/>
 
     <EditText
+        android:text="wadawd"
         android:id="@+id/etSurname"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etName"
@@ -58,6 +60,7 @@
         android:textSize="14sp"/>
 
     <EditText
+        android:text="dwawad@gmail.com"
         android:id="@+id/etEmail"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etSurname"
@@ -72,6 +75,7 @@
         android:textSize="14sp"/>
 
     <EditText
+        android:text="273843921"
         android:id="@+id/etMobile"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
@@ -86,6 +90,7 @@
         android:textSize="14sp"/>
 
     <EditText
+        android:text="wdd823udew"
         android:id="@+id/etPassword"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etMobile"
@@ -99,19 +104,18 @@
         android:padding="15dp"
         android:textSize="14sp"/>
 
-    <EditText
-        android:id="@+id/etPasswordConfirm"
-        app:layout_constraintStart_toStartOf="@id/tvDesc"
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="@string/et_repeat_password"
-        android:background="@drawable/et_rounded"
-        android:padding="15dp"
-        android:textSize="14sp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        tools:text="error"
+        android:textSize="15sp"
+        android:textColor="@color/red"/>
 
     <Button
         android:id="@+id/btnRegister"
@@ -127,6 +131,16 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="15dp"
         />
+
+    <ProgressBar
+        android:id="@+id/pbRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/btnRegister"
+        app:layout_constraintBottom_toBottomOf="@id/btnRegister"
+        app:layout_constraintStart_toStartOf="@id/btnRegister"
+        app:layout_constraintEnd_toEndOf="@id/btnRegister"
+        android:visibility="invisible"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRegister"
