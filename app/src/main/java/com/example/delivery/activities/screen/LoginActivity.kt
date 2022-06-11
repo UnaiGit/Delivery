@@ -1,6 +1,7 @@
 package com.example.delivery.activities.screen
 
 import android.content.Intent
+import android.content.Intent.*
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,13 +14,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.delivery.R
 import com.example.delivery.activities.client.home.ClientHomeActivity
+import com.example.delivery.activities.delivery.home.DeliveryHomeActivity
+import com.example.delivery.activities.shop.home.ShopHomeActivity
 import com.example.delivery.model.viewmodel.LoginViewModel
 import com.example.delivery.databinding.ActivityLoginBinding
 import com.example.delivery.model.createUser.ResponseHttp
 import com.example.delivery.model.createUser.User
-import com.example.delivery.model.effects.LoginOpenClientHome
-import com.example.delivery.model.effects.LoginOpenRegister
-import com.example.delivery.model.effects.LoginOpenSelectRoles
+import com.example.delivery.model.effects.*
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
 import com.example.delivery.utils.SharedPref
@@ -46,36 +47,43 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewModel.viewEffect().observe(this) { effect ->
-            when(effect){
+            when (effect) {
                 is LoginOpenRegister -> openRegisterSelected()
                 is LoginOpenClientHome -> openClientHomeSelected()
+                is LoginOpenShopHome -> openShopHomeSelected()
+                is LoginOpenDeliveryHome -> openDeliveryHomeSelected()
                 is LoginOpenSelectRoles -> openSelectRoles()
             }
         }
 
         getUserFromPreference()
 
-        binding.etEmail.addTextChangedListener(object: TextWatcher {
+        binding.etEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
                 viewModel.inEmailTyped(text.toString())
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.etPassword.addTextChangedListener(object: TextWatcher {
+        binding.etPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
                 viewModel.inPasswordTyped(text.toString())
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.btnLogin.setOnClickListener{
-            viewModel.onLoginButtonClicked(binding.etEmail.text.toString(),binding.etPassword.text.toString())
+        binding.btnLogin.setOnClickListener {
+            viewModel.onLoginButtonClicked(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            )
         }
 
-        binding.btnRegister.setOnClickListener{
+        binding.btnRegister.setOnClickListener {
             viewModel.onRegisterButtonClicked()
         }
 
@@ -109,20 +117,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginButtonEnabled() {
-        binding.btnLogin.isEnabled =true
+        binding.btnLogin.isEnabled = true
         binding.btnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.blue_main))
     }
 
-    private fun openRegisterSelected(){
+    private fun openRegisterSelected() {
         startActivity(Intent(this, RegisterActivity::class.java))
     }
 
-    private fun openClientHomeSelected() {
-        startActivity(Intent(this, ClientHomeActivity::class.java))
-    }
-
     private fun openSelectRoles() {
-        startActivity(Intent(this, SelectRolesActivity::class.java))
+        val i = Intent(this, SelectRolesActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
     private fun saveUserInSession(data: String) {
@@ -130,19 +136,49 @@ class LoginActivity : AppCompatActivity() {
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
         sharedPref.save("user", user)
-        if(user.roles?.size!! > 1){
+        if (user.roles?.size!! > 1) {
             viewModel.onLoadSelectRole()
-        }else{
+        } else {
             viewModel.onLoadClientHome()
         }
     }
 
-    private fun getUserFromPreference(){
+    private fun openShopHomeSelected() {
+        val i = Intent(this, ShopHomeActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    private fun openClientHomeSelected() {
+        val i = Intent(this, ClientHomeActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    private fun openDeliveryHomeSelected() {
+        val i = Intent(this, DeliveryHomeActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    private fun getUserFromPreference() {
         val sharedPref = SharedPref(this)
         val gson = Gson()
-        if (!sharedPref.getData("user").isNullOrBlank()){
+        if (!sharedPref.getData("user").isNullOrBlank()) {
             val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
-            viewModel.onLoadClientHome()
+            if (!sharedPref.getData("rol").isNullOrBlank()) {
+                val rol = sharedPref.getData("rol")?.replace("\"","")
+
+                if (rol == "SHOP") {
+                    viewModel.onLoadShopHome()
+                } else if (rol == "DELIVERY") {
+                    viewModel.onLoadDeliveryHome()
+                } else if (rol == "CLIENTE") {
+                    viewModel.onLoadClientHome()
+                }
+            } else {
+                viewModel.onLoadClientHome()
+            }
         }
     }
 }

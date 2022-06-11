@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.delivery">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"/>
 
     <application
         android:allowBackup="true"
@@ -13,6 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Delivery"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.example.delivery.activities.screen.HomeActivity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name="com.example.delivery.activities.screen.SaveImageActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.delivery.activities.delivery.home.DeliveryHomeActivity"
             android:exported="false" />
@@ -30,12 +48,8 @@
             android:exported="false" />
         <activity
             android:name="com.example.delivery.activities.screen.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

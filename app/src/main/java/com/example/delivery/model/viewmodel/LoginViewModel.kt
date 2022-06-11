@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.delivery.model.createUser.ResponseHttp
-import com.example.delivery.model.effects.LoginOpenClientHome
-import com.example.delivery.model.effects.LoginOpenRegister
-import com.example.delivery.model.effects.LoginOpenSelectRoles
-import com.example.delivery.model.effects.LoginViewEffects
+import com.example.delivery.model.effects.*
 import com.example.delivery.model.states.*
 import com.example.delivery.provider.UsersProvider
 import retrofit2.Call
@@ -80,6 +77,14 @@ class LoginViewModel() : ViewModel(){
 
     fun onLoadClientHome(){
         _viewEffect.value = LoginOpenClientHome
+    }
+
+    fun onLoadShopHome(){
+        _viewEffect.value = LoginOpenShopHome
+    }
+
+    fun onLoadDeliveryHome(){
+        _viewEffect.value = LoginOpenDeliveryHome
     }
 
     fun onRegisterButtonClicked(){
