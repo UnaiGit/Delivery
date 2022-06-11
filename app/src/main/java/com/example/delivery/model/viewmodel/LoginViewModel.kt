@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.delivery.model.createUser.ResponseHttp
 import com.example.delivery.model.effects.LoginOpenClientHome
 import com.example.delivery.model.effects.LoginOpenRegister
+import com.example.delivery.model.effects.LoginOpenSelectRoles
 import com.example.delivery.model.effects.LoginViewEffects
 import com.example.delivery.model.states.*
 import com.example.delivery.provider.UsersProvider
@@ -83,5 +84,9 @@ class LoginViewModel() : ViewModel(){
 
     fun onRegisterButtonClicked(){
         _viewEffect.value = LoginOpenRegister
+    }
+
+    fun onLoadSelectRole(){
+        _viewEffect.value = LoginOpenSelectRoles
     }
 }

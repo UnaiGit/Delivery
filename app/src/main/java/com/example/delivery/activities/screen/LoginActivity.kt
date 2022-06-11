@@ -19,6 +19,7 @@ import com.example.delivery.model.createUser.ResponseHttp
 import com.example.delivery.model.createUser.User
 import com.example.delivery.model.effects.LoginOpenClientHome
 import com.example.delivery.model.effects.LoginOpenRegister
+import com.example.delivery.model.effects.LoginOpenSelectRoles
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
 import com.example.delivery.utils.SharedPref
@@ -48,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             when(effect){
                 is LoginOpenRegister -> openRegisterSelected()
                 is LoginOpenClientHome -> openClientHomeSelected()
+                is LoginOpenSelectRoles -> openSelectRoles()
             }
         }
 
@@ -86,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
     private fun showSuccessLogin(loginUserResponse: ResponseHttp?) {
         saveUserInSession(loginUserResponse?.data.toString())
         Toast.makeText(this, loginUserResponse?.message, Toast.LENGTH_SHORT).show()
-        viewModel.onLoadClientHome()
         binding.btnLogin.isVisible = true
         binding.pbLogin.isVisible = false
     }
@@ -120,11 +121,20 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, ClientHomeActivity::class.java))
     }
 
+    private fun openSelectRoles() {
+        startActivity(Intent(this, SelectRolesActivity::class.java))
+    }
+
     private fun saveUserInSession(data: String) {
         val sharedPref = SharedPref(this)
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
         sharedPref.save("user", user)
+        if(user.roles?.size!! > 1){
+            viewModel.onLoadSelectRole()
+        }else{
+            viewModel.onLoadClientHome()
+        }
     }
 
     private fun getUserFromPreference(){

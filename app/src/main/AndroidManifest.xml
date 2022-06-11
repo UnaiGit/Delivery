@@ -14,6 +14,15 @@
         android:theme="@style/Theme.Delivery"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="com.example.delivery.activities.delivery.home.DeliveryHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.delivery.activities.shop.home.ShopHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.delivery.activities.screen.SelectRolesActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.delivery.activities.client.home.ClientHomeActivity"
             android:exported="false" />
         <activity
