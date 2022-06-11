@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.delivery">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Delivery"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.example.delivery.activities.client.home.ClientHomeActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.delivery.activities.screen.RegisterActivity"
             android:exported="false" />

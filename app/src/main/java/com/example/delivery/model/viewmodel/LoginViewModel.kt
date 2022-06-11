@@ -1,18 +1,23 @@
-package com.example.delivery.activities.viewmodel
+package com.example.delivery.model.viewmodel
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.delivery.model.createUser.ResponseHttp
+import com.example.delivery.model.effects.LoginOpenClientHome
 import com.example.delivery.model.effects.LoginOpenRegister
 import com.example.delivery.model.effects.LoginViewEffects
-import com.example.delivery.model.effects.RegisterViewEffects
 import com.example.delivery.model.states.*
+import com.example.delivery.provider.UsersProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginViewModel() : ViewModel(){
     private var isEmailValid = false
     private var isPasswordValid = false
-
+    private var usersProvider = UsersProvider()
     private val _viewState: MutableLiveData<LoginViewStates> = MutableLiveData(LoginDisabled)
     private val _viewEffect: MutableLiveData<LoginViewEffects> = MutableLiveData()
 
@@ -56,11 +61,27 @@ class LoginViewModel() : ViewModel(){
     }
 
     fun onLoginButtonClicked(email: String, password: String){
+        usersProvider.login(email,password)?.enqueue(object: Callback<ResponseHttp>{
+            override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
+                if (response.body()?.isSuccess == true){
+                    _viewState.value = LoginSuccess(response.body())
+                }else{
+                    _viewState.value = LoginError("The email or password is incorrect")
+                }
+            }
 
+            override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
+                _viewState.value = LoginError("There was an issue on the server")
+            }
+
+        })
+    }
+
+    fun onLoadClientHome(){
+        _viewEffect.value = LoginOpenClientHome
     }
 
     fun onRegisterButtonClicked(){
         _viewEffect.value = LoginOpenRegister
     }
-
 }

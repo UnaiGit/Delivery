@@ -10,13 +10,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.delivery.activities.viewmodel.RegisterViewModel
+import com.example.delivery.model.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
 import com.example.delivery.model.effects.RegisterOpenLogin
 import com.example.delivery.model.effects.RegisterOpenTerms
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
-import com.example.delivery.repository.Repository
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding

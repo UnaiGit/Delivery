@@ -1,24 +1,28 @@
 package com.example.delivery.activities.screen
 
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.delivery.R
-import com.example.delivery.activities.viewmodel.LoginViewModel
-import com.example.delivery.activities.viewmodel.RegisterViewModel
+import com.example.delivery.activities.client.home.ClientHomeActivity
+import com.example.delivery.model.viewmodel.LoginViewModel
 import com.example.delivery.databinding.ActivityLoginBinding
+import com.example.delivery.model.createUser.ResponseHttp
+import com.example.delivery.model.createUser.User
+import com.example.delivery.model.effects.LoginOpenClientHome
 import com.example.delivery.model.effects.LoginOpenRegister
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
+import com.example.delivery.utils.SharedPref
+import com.google.gson.Gson
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -35,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 is LoginDisabled -> showAllByDefault()
                 is LoginLoading -> showProgressBar()
                 is LoginError -> showErrorPopup(state.error)
-                is LoginSuccess -> showSuccessLogin()
+                is LoginSuccess -> showSuccessLogin(state.loginUserResponse)
                 is LoginFormat -> showFormatError(state.format)
             }
         }
@@ -43,8 +47,11 @@ class LoginActivity : AppCompatActivity() {
         viewModel.viewEffect().observe(this) { effect ->
             when(effect){
                 is LoginOpenRegister -> openRegisterSelected()
+                is LoginOpenClientHome -> openClientHomeSelected()
             }
         }
+
+        getUserFromPreference()
 
         binding.etEmail.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -76,8 +83,10 @@ class LoginActivity : AppCompatActivity() {
         binding.tvError.text = format
     }
 
-    private fun showSuccessLogin() {
-        Toast.makeText(this, "answer", Toast.LENGTH_SHORT).show()
+    private fun showSuccessLogin(loginUserResponse: ResponseHttp?) {
+        saveUserInSession(loginUserResponse?.data.toString())
+        Toast.makeText(this, loginUserResponse?.message, Toast.LENGTH_SHORT).show()
+        viewModel.onLoadClientHome()
         binding.btnLogin.isVisible = true
         binding.pbLogin.isVisible = false
     }
@@ -105,5 +114,25 @@ class LoginActivity : AppCompatActivity() {
 
     private fun openRegisterSelected(){
         startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun openClientHomeSelected() {
+        startActivity(Intent(this, ClientHomeActivity::class.java))
+    }
+
+    private fun saveUserInSession(data: String) {
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+        val user = gson.fromJson(data, User::class.java)
+        sharedPref.save("user", user)
+    }
+
+    private fun getUserFromPreference(){
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+        if (!sharedPref.getData("user").isNullOrBlank()){
+            val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
+            viewModel.onLoadClientHome()
+        }
     }
 }

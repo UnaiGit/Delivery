@@ -1,4 +1,4 @@
-package com.example.delivery.activities.viewmodel
+package com.example.delivery.model.viewmodel
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -97,9 +97,8 @@ class RegisterViewModel() : ViewModel() {
             }
 
             override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
-                _viewState.value = RegisterError(t.message.toString())
+                _viewState.value = RegisterError("There was an issue on the server")
                 Log.d(TAG, "Error happened ${t.message}")
-                //Toast.makeText(this@RegisterViewModel, "Error", Toast.LENGTH_SHORT).show()
             }
 
         })

@@ -16,4 +16,5 @@
     <string name="error">ERROR</string>
     <string name="popup_image">Popup image</string>
     <string name="close_button">Close button</string>
+    <string name="log_out">Log Out</string>
 </resources>
