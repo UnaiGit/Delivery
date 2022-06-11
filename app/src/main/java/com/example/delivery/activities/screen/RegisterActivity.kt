@@ -10,12 +10,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.example.delivery.activities.client.home.ClientHomeActivity
 import com.example.delivery.model.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
+import com.example.delivery.model.createUser.ResponseHttp
+import com.example.delivery.model.createUser.User
+import com.example.delivery.model.effects.RegisterOpenClientHome
 import com.example.delivery.model.effects.RegisterOpenLogin
 import com.example.delivery.model.effects.RegisterOpenTerms
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
+import com.example.delivery.utils.SharedPref
+import com.google.gson.Gson
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -41,6 +47,7 @@ class RegisterActivity : AppCompatActivity() {
             when (effect) {
                 is RegisterOpenTerms -> openHomeSelected()
                 is RegisterOpenLogin -> openLoginSelected()
+                is RegisterOpenClientHome -> openClientHomeSelected()
             }
         }
 
@@ -91,8 +98,9 @@ class RegisterActivity : AppCompatActivity() {
         TODO("Not yet implemented")
     }
 
-    private fun showSuccessRegister(createUserResponse: String?) {
-        Toast.makeText(this, createUserResponse, Toast.LENGTH_SHORT).show()
+    private fun showSuccessRegister(createUserResponse: ResponseHttp?) {
+        Toast.makeText(this, createUserResponse?.message, Toast.LENGTH_SHORT).show()
+        saveUserInSession(createUserResponse?.data.toString())
         binding.btnRegister.isVisible = true
         binding.pbRegister.isVisible = false
     }
@@ -116,5 +124,16 @@ class RegisterActivity : AppCompatActivity() {
     private fun showButtonEnabled() {
         binding.btnRegister.isEnabled = true
         binding.btnRegister.setBackgroundColor(Color.BLUE)
+    }
+
+    private fun openClientHomeSelected() {
+        startActivity(Intent(this, ClientHomeActivity::class.java))
+    }
+
+    private fun saveUserInSession(data: String) {
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+        val user = gson.fromJson(data, User::class.java)
+        sharedPref.save("user", user)
     }
 }

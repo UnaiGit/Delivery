@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.delivery.model.createUser.User
 import com.example.delivery.model.createUser.ResponseHttp
+import com.example.delivery.model.effects.RegisterOpenClientHome
 import com.example.delivery.model.effects.RegisterOpenLogin
 import com.example.delivery.model.effects.RegisterViewEffects
 import com.example.delivery.model.states.*
@@ -92,8 +93,13 @@ class RegisterViewModel() : ViewModel() {
                 call: Call<ResponseHttp>,
                 response: Response<ResponseHttp>
             ) {
-                _viewState.value = RegisterSuccess(response.body()?.message)
-                Log.d(TAG, "Body ${response.body()}")
+                if (response.body()?.isSuccess == true){
+                    _viewState.value = RegisterSuccess(response.body())
+                    _viewEffect.value = RegisterOpenClientHome
+                    Log.d(TAG, "Body ${response.body()}")
+                }else{
+                    _viewState.value = RegisterError("The email or password is incorrect")
+                }
             }
 
             override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
