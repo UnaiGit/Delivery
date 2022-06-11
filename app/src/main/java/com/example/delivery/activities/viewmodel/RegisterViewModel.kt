@@ -8,20 +8,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.delivery.model.createUser.User
 import com.example.delivery.model.createUser.ResponseHttp
+import com.example.delivery.model.effects.RegisterOpenLogin
 import com.example.delivery.model.effects.RegisterViewEffects
 import com.example.delivery.model.states.*
 import com.example.delivery.provider.UsersProvider
-import com.example.delivery.repository.Repository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterViewModel(private val repository: Repository) : ViewModel() {
+class RegisterViewModel() : ViewModel() {
     private var isEmailValid = false
     private var isPhoneValid = false
     private var isPasswordValid = false
-    private var pass1 : String? = null
-    private var pass2 : String? = null
     var usersProvider = UsersProvider()
 
     private val _viewState: MutableLiveData<RegisterViewStates> = MutableLiveData(RegisterDisabled)
@@ -105,5 +103,9 @@ class RegisterViewModel(private val repository: Repository) : ViewModel() {
             }
 
         })
+    }
+
+    fun onLoginButtonClicked(){
+        _viewEffect.value = RegisterOpenLogin
     }
 }

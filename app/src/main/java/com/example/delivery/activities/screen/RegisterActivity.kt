@@ -10,11 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.delivery.activities.modelfactory.RegisterViewModelFactory
 import com.example.delivery.activities.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
-import com.example.delivery.model.effects.RegisterOpenHome
 import com.example.delivery.model.effects.RegisterOpenLogin
+import com.example.delivery.model.effects.RegisterOpenTerms
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
 import com.example.delivery.repository.Repository
@@ -26,10 +25,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val repository = Repository()
-        val viewModelFactory = RegisterViewModelFactory(repository)
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
-        viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
         viewModel.viewState().observe(this) { state ->
             when (state) {
                 is RegisterEnabled -> showButtonEnabled()
@@ -43,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
 
         viewModel.viewEffect().observe(this) { effect ->
             when (effect) {
-                is RegisterOpenHome -> openHomeSelected()
+                is RegisterOpenTerms -> openHomeSelected()
                 is RegisterOpenLogin -> openLoginSelected()
             }
         }
@@ -60,6 +57,10 @@ class RegisterActivity : AppCompatActivity() {
                 phone = binding.etMobile.text.toString(),
                 password = binding.etPassword.text.toString()
             )
+        }
+
+        binding.btnLogin.setOnClickListener {
+            viewModel.onLoginButtonClicked()
         }
     }
 
@@ -84,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun openLoginSelected() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun openHomeSelected() {
