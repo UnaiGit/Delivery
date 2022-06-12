@@ -10,14 +10,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.delivery.activities.modelfactory.RegisterViewModelFactory
-import com.example.delivery.activities.viewmodel.RegisterViewModel
+import com.example.delivery.activities.client.home.ClientHomeActivity
+import com.example.delivery.model.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
-import com.example.delivery.model.effects.RegisterOpenHome
+import com.example.delivery.model.createUser.ResponseHttp
+import com.example.delivery.model.createUser.User
+import com.example.delivery.model.effects.RegisterOpenClientHome
 import com.example.delivery.model.effects.RegisterOpenLogin
+import com.example.delivery.model.effects.RegisterOpenTerms
 import com.example.delivery.model.states.*
 import com.example.delivery.popup.PopupWarningLayout
-import com.example.delivery.repository.Repository
+import com.example.delivery.utils.SharedPref
+import com.google.gson.Gson
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -26,10 +30,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val repository = Repository()
-        val viewModelFactory = RegisterViewModelFactory(repository)
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
-        viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
         viewModel.viewState().observe(this) { state ->
             when (state) {
                 is RegisterEnabled -> showButtonEnabled()
@@ -43,8 +45,9 @@ class RegisterActivity : AppCompatActivity() {
 
         viewModel.viewEffect().observe(this) { effect ->
             when (effect) {
-                is RegisterOpenHome -> openHomeSelected()
+                is RegisterOpenTerms -> openHomeSelected()
                 is RegisterOpenLogin -> openLoginSelected()
+                is RegisterOpenClientHome -> openClientHomeSelected()
             }
         }
 
@@ -60,6 +63,10 @@ class RegisterActivity : AppCompatActivity() {
                 phone = binding.etMobile.text.toString(),
                 password = binding.etPassword.text.toString()
             )
+        }
+
+        binding.btnLogin.setOnClickListener {
+            viewModel.onLoginButtonClicked()
         }
     }
 
@@ -84,15 +91,16 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun openLoginSelected() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun openHomeSelected() {
         TODO("Not yet implemented")
     }
 
-    private fun showSuccessRegister(createUserResponse: String?) {
-        Toast.makeText(this, createUserResponse, Toast.LENGTH_SHORT).show()
+    private fun showSuccessRegister(createUserResponse: ResponseHttp?) {
+        Toast.makeText(this, createUserResponse?.message, Toast.LENGTH_SHORT).show()
+        saveUserInSession(createUserResponse?.data.toString())
         binding.btnRegister.isVisible = true
         binding.pbRegister.isVisible = false
     }
@@ -116,5 +124,18 @@ class RegisterActivity : AppCompatActivity() {
     private fun showButtonEnabled() {
         binding.btnRegister.isEnabled = true
         binding.btnRegister.setBackgroundColor(Color.BLUE)
+    }
+
+    private fun openClientHomeSelected() {
+        val i = Intent(this, SaveImageActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i )
+    }
+
+    private fun saveUserInSession(data: String) {
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+        val user = gson.fromJson(data, User::class.java)
+        sharedPref.save("user", user)
     }
 }
