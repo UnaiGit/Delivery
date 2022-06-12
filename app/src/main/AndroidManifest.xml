@@ -7,8 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage"/>
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -17,15 +18,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Delivery"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity
+            android:name="com.example.delivery.activities.screen.TermsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.delivery.activities.client.update.ClientUpdateActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.delivery.activities.screen.HomeActivity"
-            android:exported="false" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.delivery.activities.screen.SaveImageActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name="com.example.delivery.activities.delivery.home.DeliveryHomeActivity"
             android:exported="false" />
@@ -43,12 +55,7 @@
             android:exported="false" />
         <activity
             android:name="com.example.delivery.activities.screen.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
+
 </manifest>

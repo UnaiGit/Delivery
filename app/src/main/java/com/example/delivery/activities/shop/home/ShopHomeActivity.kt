@@ -57,7 +57,7 @@ class ShopHomeActivity : AppCompatActivity() {
 
     private fun openFragment(fragment : Fragment){
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(binding.flContainer.id, fragment)
+        transaction.replace(R.id.flContainerShop, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

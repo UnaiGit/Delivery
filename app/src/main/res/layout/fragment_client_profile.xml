@@ -3,12 +3,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.client.ClientProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
-        android:text="CLIENT PROFILE" />
+        android:layout_width="match_parent"
+        android:background="@color/main">
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/image_profile"
+            android:scaleType="centerCrop"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImagePicker"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp"
+            app:civ_border_width="3dp"
+            app:civ_border_color="@color/white"
+            android:src="@drawable/logo"/>
+
+        <ImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_profile_image"
+            app:layout_constraintTop_toBottomOf="@id/profileImagePicker"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginVertical="20dp"/>
+
+        <TextView
+            android:id="@+id/tvProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ivProfileImage"
+            app:layout_constraintTop_toTopOf="@id/ivProfileImage"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfileImage"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/white"
+            tools:text="Name"/>
+
+        <ImageView
+            android:id="@+id/ivProfileEmail"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_profile_email"
+            app:layout_constraintTop_toBottomOf="@id/ivProfileImage"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginVertical="20dp"/>
+
+        <TextView
+            android:id="@+id/tvProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ivProfileEmail"
+            app:layout_constraintTop_toTopOf="@id/ivProfileEmail"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfileEmail"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/white"
+            tools:text="Email"/>
+
+        <ImageView
+            android:id="@+id/ivProfileMobile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_profile_mobile"
+            app:layout_constraintTop_toBottomOf="@id/ivProfileEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginVertical="20dp"/>
+
+        <TextView
+            android:id="@+id/tvProfileMobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ivProfileMobile"
+            app:layout_constraintTop_toTopOf="@id/ivProfileMobile"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfileMobile"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/white"
+            tools:text="Email"/>
+
+        <Button
+            android:id="@+id/btnSelectRol"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="70dp"
+            android:text="SELECT ROL"/>
+
+        <Button
+            android:id="@+id/btnEditProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnSelectRol"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="40dp"
+            android:background="@drawable/btn_border"
+            android:text="EDIT PROFILE" />
+        
+        <ImageView
+            android:id="@+id/ivCloseSession"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_close_session"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

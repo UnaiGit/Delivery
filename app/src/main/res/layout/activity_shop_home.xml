@@ -7,14 +7,14 @@
     tools:context=".activities.shop.home.ShopHomeActivity">
 
     <FrameLayout
-        android:id="@+id/flContainer"
+        android:id="@+id/flContainerShop"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/bottom_navigation_menu_client"
+            app:menu="@menu/bottom_navigation_menu_shop"
             android:layout_gravity="bottom"
             android:background="@color/dark_shadow"
             app:itemIconTint="@color/white"

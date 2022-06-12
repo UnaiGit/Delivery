@@ -48,9 +48,6 @@ class ClientHomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        binding.btnLogOut.setOnClickListener{
-            logout()
-        }
     }
 
     private fun openFragment(fragment : Fragment){
@@ -61,10 +58,6 @@ class ClientHomeActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun logout(){
-        sharedPref?.remove("user")
-        startActivity(Intent(this, LoginActivity::class.java))
-    }
     private fun getUserFromPreference(){
         val gson = Gson()
         if (!sharedPref?.getData("user").isNullOrBlank()){

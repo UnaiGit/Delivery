@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
             )
         }
 
-        binding.btnRegister.setOnClickListener {
+        binding.clRegister.setOnClickListener {
             viewModel.onRegisterButtonClicked()
         }
 
@@ -114,11 +114,13 @@ class LoginActivity : AppCompatActivity() {
     private fun showAllByDefault() {
         binding.btnLogin.isEnabled = false
         binding.btnLogin.setBackgroundColor(Color.GRAY)
+        binding.btnLogin.setTextColor(Color.DKGRAY)
     }
 
     private fun showLoginButtonEnabled() {
         binding.btnLogin.isEnabled = true
-        binding.btnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.blue_main))
+        binding.btnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+        binding.btnLogin.setTextColor(Color.WHITE)
     }
 
     private fun openRegisterSelected() {

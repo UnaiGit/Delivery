@@ -8,9 +8,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.delivery.activities.client.home.ClientHomeActivity
+import com.example.delivery.R
 import com.example.delivery.model.viewmodel.RegisterViewModel
 import com.example.delivery.databinding.ActivityRegisterBinding
 import com.example.delivery.model.createUser.ResponseHttp
@@ -65,8 +66,12 @@ class RegisterActivity : AppCompatActivity() {
             )
         }
 
-        binding.btnLogin.setOnClickListener {
+        binding.clLogin.setOnClickListener {
             viewModel.onLoginButtonClicked()
+        }
+
+        binding.tvTerms.setOnClickListener {
+            startActivity(Intent(this, TermsActivity::class.java))
         }
     }
 
@@ -119,11 +124,13 @@ class RegisterActivity : AppCompatActivity() {
     private fun showAllByDefault() {
         binding.btnRegister.isEnabled = false
         binding.btnRegister.setBackgroundColor(Color.GRAY)
+        binding.btnRegister.setTextColor(Color.DKGRAY)
     }
 
     private fun showButtonEnabled() {
         binding.btnRegister.isEnabled = true
-        binding.btnRegister.setBackgroundColor(Color.BLUE)
+        binding.btnRegister.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+        binding.btnRegister.setTextColor(Color.WHITE)
     }
 
     private fun openClientHomeSelected() {

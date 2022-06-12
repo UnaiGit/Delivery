@@ -1,0 +1,81 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp">
+
+
+      <TextView
+          android:id="@+id/tvConditions"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/tvConditionsDetails"
+          android:layout_marginVertical="20dp"
+          android:text="CONDITIONS AND EXCLUSIONS DO YOU AGREE"
+          android:fontFamily="@font/times"
+          android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvConditionsDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvConditions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/conditions_desc"/>
+
+        <TextView
+            android:id="@+id/tvTrademark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvConditionsDetails"
+            android:layout_marginVertical="20dp"
+            android:text="TRADEMARK AND COPYRIGHT NOTICE"
+            android:fontFamily="@font/times"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvTrademarkDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvTrademark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/trademark_desc"/>
+
+        <TextView
+            android:id="@+id/tvProcedure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrademarkDetails"
+            android:layout_marginVertical="20dp"
+            android:text="PROCEDURE TO DELIVER COUNTER-NOTICE"
+            android:fontFamily="@font/times"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvProcedureDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvProcedure"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/procedure_desc"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
