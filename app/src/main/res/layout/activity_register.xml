@@ -40,8 +40,6 @@
         android:textSize="10sp"/>
 
     <EditText
-        
-        android:text="dewwdw"
         android:id="@+id/etName"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/tvDesc"
@@ -56,7 +54,6 @@
         android:textSize="14sp"/>
 
     <EditText
-        android:text="wadawd"
         android:id="@+id/etSurname"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etName"
@@ -71,7 +68,6 @@
         android:textSize="14sp"/>
 
     <EditText
-        android:text="dwawad@gmail.com"
         android:id="@+id/etEmail"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etSurname"
@@ -86,7 +82,6 @@
         android:textSize="14sp"/>
 
     <EditText
-        android:text="273843921"
         android:id="@+id/etMobile"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
@@ -101,7 +96,6 @@
         android:textSize="14sp"/>
 
     <EditText
-        android:text="wdd823udew"
         android:id="@+id/etPassword"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/etMobile"
@@ -192,7 +186,7 @@
             android:layout_height="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clRegister"
+            app:layout_constraintTop_toBottomOf="@id/clLogin"
             app:layout_constraintBottom_toTopOf="@id/btnLogin"
             app:tint="#989898"
             android:contentDescription="Icon which runs the same action that btnRegister" />

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Delivery</string>
+    <string name="app_name">ProjectRenai</string>
     <string name="login">LOGIN</string>
     <string name="get_into_with_your_email_and_password">Get into with your Email and Password</string>
     <string name="email_login">Email</string>
