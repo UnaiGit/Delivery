@@ -127,7 +127,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun openClientHomeSelected() {
-        startActivity(Intent(this, ClientHomeActivity::class.java))
+        val i = Intent(this, SaveImageActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i )
     }
 
     private fun saveUserInSession(data: String) {

@@ -1,5 +1,6 @@
 package com.example.delivery.model.createUser
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 data class User(
     @SerializedName("id") val id: String? = null,
@@ -15,5 +16,9 @@ data class User(
 ){
     override fun toString(): String {
         return "User(id=$id, name='$name', lastname='$lastname', email='$email', phone='$phone', password='$password', image=$image, sessionToken=$sessionToken, isAvailable=$isAvailable, roles=$roles)"
+    }
+
+    fun toJson() : String{
+        return Gson().toJson(this)
     }
 }
